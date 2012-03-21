@@ -1,7 +1,7 @@
 # svn init.php
 
 class svn {
-    package { 'subversion":
+    package { 'subversion':
         ensure => latest,
     }
 }

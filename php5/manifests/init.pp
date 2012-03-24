@@ -13,5 +13,6 @@ class php5 {
         name    => '/var/www/i.php',
         source  => 'puppet:///modules/php5/phpinfo.php',
         require => Package['php5'],
+        notify  => Service['apache2'],
     }
 }

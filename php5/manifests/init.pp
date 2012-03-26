@@ -5,6 +5,16 @@ class php5 {
         ensure => latest,
     }
 
+    package { 'php5-intl':
+        ensure  => latest,
+        require => Package['php5'],
+    }
+
+    package { 'php5-pgsql':
+        ensure  => latest,
+        require => Package['php5'],
+    }
+
     file { 'phpinfo':
         owner   => root,
         group   => root,

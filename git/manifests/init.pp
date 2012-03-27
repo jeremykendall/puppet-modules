@@ -12,4 +12,8 @@ class git($name, $email) {
     exec { "git config --global user.email \"${email}\"":
         path => '/usr/bin',
     }
+
+    exec { 'git config --global color.ui auto':
+        path => '/usr/bin',
+    }
 }

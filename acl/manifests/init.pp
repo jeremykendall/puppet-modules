@@ -5,8 +5,17 @@ class acl {
         ensure => latest,
     }
 
-    exec { 'update fstab':
-        command => '/bin/sh puppet:///modules/acl/updatefstab.sh',
+    file { 'updatefstab.sh':
+        ensure  => file,
+        mode    => '0777',
+        name    => '/tmp/updatefstab.sh',
+        source  => 'puppet:///modules/acl/updatefstab.sh',
+        before  => Exec['updatefstab'],
+        require => Package['acl'],
+    }
+
+    exec { 'updatefstab':
+        command => '/bin/sh /tmp/updatefstab.sh',
         require => Package['acl'],
     }
 }

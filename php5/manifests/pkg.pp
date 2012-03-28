@@ -1,7 +1,7 @@
-# php5::package.pp
+# php5::pkg.pp
 
-define ph5::package ($name) {
-    package $name: {
+define php5::pkg() {
+    package { "${name}":
         ensure  => latest,
         require => Package['php5'],
     }

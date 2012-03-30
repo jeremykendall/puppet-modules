@@ -1,7 +1,7 @@
 # postgresql::conf.pp
 
 class postgresql::conf(
-    $method,
+    $pgmethod,
     $template = 'postgresql/pg_hba.conf.erb',
 ) {
     #    augeas { 'pg_hba':
@@ -27,8 +27,9 @@ class postgresql::conf(
         before  => Exec['user-config'],
     }
 
-    exec { 'psql < /tmp/user-config.sql':
+    exec { 'sudo -u postgres psql < /tmp/user-config.sql':
         path    => '/usr/bin',
+        alias   => 'user-config',
         require => File['/tmp/user-config.sql'],
     }
 }

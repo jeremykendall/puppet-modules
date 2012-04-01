@@ -10,26 +10,30 @@ class postgresql::conf(
     #    require => Package['postgresql'],
     # }
 
-    file { "/etc/postgresql/9.1/main/pg_hba.conf":
-        content => template($template),
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        require => Package['postgresql'],
-    }
-
     file { '/tmp/user-config.sql':
         ensure  => present,
-        owner   => 'root',
-        group   => 'root',
+        owner   => 'postgres',
+        group   => 'postgres',
         mode    => '0644',
+        source  => 'puppet:///modules/postgresql/user-config.sql',
         require => Package['postgresql'],
-        before  => Exec['user-config'],
+        before  => File['pg_hba'],
     }
 
     exec { 'sudo -u postgres psql < /tmp/user-config.sql':
         path    => '/usr/bin',
         alias   => 'user-config',
         require => File['/tmp/user-config.sql'],
+        before  => File['pg_hba'],
     }
+
+    file { "/etc/postgresql/9.1/main/pg_hba.conf":
+        alias   => 'pg_hba',
+        content => template($template),
+        owner   => 'postgres',
+        group   => 'postgres',
+        mode    => '0640',
+        notify  => Service['postgresql'],
+    }
+
 }

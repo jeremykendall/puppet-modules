@@ -5,8 +5,12 @@ class postgresql {
         ensure => latest,
     }
 
-    package { 'pgadmin3':
-        ensure  => latest,
-        require => Package['postgresql'],
+    service { 'postgresql':
+        ensure     => running,
+        enable     => true,
+        hasstatus  => true,
+        hasrestart => true,
+        require    => Package['postgresql'],
     }
+
 }

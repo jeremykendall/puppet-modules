@@ -8,7 +8,7 @@ class acl {
     file { 'updatefstab.sh':
         ensure  => file,
         mode    => '0777',
-        name    => '/tmp/updatefstab.sh',
+        path    => '/tmp/updatefstab.sh',
         source  => 'puppet:///modules/acl/updatefstab.sh',
         before  => Exec['updatefstab'],
         require => Package['acl'],

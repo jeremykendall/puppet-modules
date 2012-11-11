@@ -5,7 +5,8 @@
 # Parameters:
 # - The $port to configure the host on
 # - The $docroot provides the DocumentationRoot variable
-# - The $template option specifies whether to use the default template or override
+# - The $template option specifies whether to use the default template
+#   or override
 # - The $serveraliases of the site
 # - The $options for the given vhost
 # - The $allowoverride option for the given host
@@ -30,22 +31,22 @@ define apache2::vhost(
     $template        = 'apache2/vhost-default.conf.erb',
     $servername      = $title,
     $serveraliases   = '',
-    $options         = "Indexes FollowSymLinks MultiViews",
+    $options         = 'Indexes FollowSymLinks MultiViews',
     $allowoverride   = 'all',
     $vhost_name      = '*',
     $configfile_name = $title,
   ) {
 
   include apache2
-  
+
   $logdir = '/var/log/apache2'
-  
+
   file {
     "/etc/apache2/sites-available/${configfile_name}":
       content => template($template),
       owner   => 'root',
       group   => 'root',
-      mode    => 644,
+      mode    => '0644',
       require => Package['apache2'],
   }
 

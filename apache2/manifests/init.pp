@@ -22,4 +22,10 @@ class apache2 {
         group  => 'root',
         mode   => '0644',
     }
+
+    exec { 'apache2_user_group':
+        command => '/bin/sed -i "s/www-data/vagrant/g" /etc/apache2/envvars',
+        onlyif  => 'grep -c "www-data" /etc/apache2/envvars',
+        notify  => Service['apache2']
+    }
 }

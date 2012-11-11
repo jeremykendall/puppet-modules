@@ -16,4 +16,12 @@ describe 'apache2', :type => :class do
         'hasstatus'  => true,
         'hasrestart' => true
     )}
+
+    it { should contain_file('/etc/apache2/mods-enabled/rewrite.load'). with(
+        'ensure' => 'symlink',
+        'target' => '/etc/apache2/mods-available/rewrite.load',
+        'owner'  => 'root',
+        'group'  => 'root',
+        'mode'   => '0644',
+    )}
 end

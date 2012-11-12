@@ -32,5 +32,11 @@ describe 'apache2', :type => :class do
             'onlyif'  => '/bin/grep -c "www-data" /etc/apache2/envvars'
         )
 
+        should contain_exec('server-name').with(
+            'command' => 'echo "ServerName localhost" | sudo tee /etc/apache2/httpd.conf',
+            'path'    => ['/bin', '/usr/bin'],
+            'unless'  => '/bin/grep -c "ServerName localhost" /etc/apache2/httpd.conf'
+        )
+
     end 
 end

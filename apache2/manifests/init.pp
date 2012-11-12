@@ -28,4 +28,11 @@ class apache2 {
         onlyif  => '/bin/grep -c "www-data" /etc/apache2/envvars',
         notify  => Service['apache2']
     }
+
+    exec { 'server-name':
+        command => 'echo "ServerName localhost" | sudo tee /etc/apache2/httpd.conf',
+        path    => ['/bin', '/usr/bin'],
+        unless  => '/bin/grep -c "ServerName localhost" /etc/apache2/httpd.conf',
+        notify  => Service['apache2']
+    }
 }

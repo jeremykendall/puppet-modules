@@ -1,0 +1,9 @@
+name 'jeremykendall-sqlite3'
+version '0.0.1'
+
+author 'Jeremy Kendall'
+license 'MIT'
+project_page ''
+source ''
+summary 'Installs sqlite3'
+description 'This module installs the latest version of sqlite3.'

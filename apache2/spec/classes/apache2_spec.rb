@@ -29,7 +29,7 @@ describe 'apache2', :type => :class do
 
         should contain_exec('apache2_user_group').with(
             'command' => '/bin/sed -i "s/www-data/vagrant/g" /etc/apache2/envvars',
-            'onlyif'  => 'grep -c "www-data" /etc/apache2/envvars'
+            'onlyif'  => '/bin/grep -c "www-data" /etc/apache2/envvars'
         )
 
     end 
